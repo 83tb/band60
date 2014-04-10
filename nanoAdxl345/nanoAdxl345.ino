@@ -52,10 +52,10 @@ void setup() {
 
 void Meas() {
 
-		accel.getAcceleration(&ax, &ay, &az);
-
-	 	xg = (float)ax / 32;
-   	yg = (float)ay / 32;
+    accel.getAcceleration(&ax, &ay, &az);
+    
+    xg = (float)ax / 32;
+    yg = (float)ay / 32;
     zg = (float)az / 32;
 
 	 	Serial.print(i++); 
