@@ -34,7 +34,7 @@ void setup() {
 
     Wire.begin();
 
-    Serial.begin(9600);
+    Serial.begin(57600);
 
     Serial.println("Initializing I2C devices...");       
     accel.initialize();
@@ -58,11 +58,23 @@ void Meas() {
    	yg = (float)ay / 32;
     zg = (float)az / 32;
 
-	 	Serial.print(i++); Serial.print("\t");
-   	Serial.print(xg);  Serial.print("\t");
-  	Serial.print(yg);  Serial.print("\t");
-  	Serial.print(zg);  Serial.println("\t");
-   	delay(10);
+	 	Serial.print(i++); 
+    Serial.print("\t");
+   	delay(1);
+    
+    Serial.print(xg);  
+    Serial.print("\t");
+  	delay(1);
+    
+    Serial.print(yg);  
+    Serial.print("\t");
+  	delay(1);
+    
+    Serial.print(zg);  
+    Serial.println("\t");
+   	delay(1);
+    
+    delay(1000);
 }
   
 
