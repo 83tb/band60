@@ -34,7 +34,7 @@ void setup() {
 
     Wire.begin();
 
-    Serial.begin(115200);
+    Serial.begin(57600);
 
     Serial.println("Initializing I2C devices...");       
     accel.initialize();
