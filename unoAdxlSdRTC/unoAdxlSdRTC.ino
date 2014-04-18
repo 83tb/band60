@@ -25,6 +25,7 @@ long i = 0;
 const int chipSelect = 4;
 String dataString = "";
 String timeString = "";
+String dayweek = "";
 
 #define LED_PIN 13
 #define RED     8
@@ -61,7 +62,7 @@ void setup() {
     
     accel.setRate(0xF);
     accel.setRange(0x3);
-    delay(5000);
+    delay(2000);
 
     Serial.print("Initializing SD card...");
     pinMode(10, OUTPUT);
@@ -72,7 +73,7 @@ void setup() {
     }
     Serial.println("SD card initialized.");
 
-    delay(5000);
+    delay(2000);
 
 
     setSyncProvider(RTC.get);   // the function to get the time from the RTC
@@ -81,20 +82,24 @@ void setup() {
   	else
     	Serial.println("RTC has set the system time"); 
 
-    delay(5000);
+    //setTime(13,06,30,18,4,14);
+    //RTC.set(now());
+
+    delay(2000);
 
 }
 
 
 void getTimeString(){
 
+
 	timeString = "";
-	timeString = String(year())   + String("/") +
-				 String(month())  + String("/") +
-				 String(day())    + String(" ") +
+	timeString = String(year())   + String("-0") +
+				 String(month())  + String("-") +
+				 String(day())    + String("T") +
 				 String(hour())   + String(":") +
 				 String(minute()) + String(":") +
-				 String(second()) + String(" ");
+				 String(second()) + String(".000000Z ");
 
 }
 
@@ -111,7 +116,7 @@ void Meas() {
 
     dataString = String(xg)  + String(" ") +
                  String(yg)  + String(" ") +
-                 String(zg)  + String("\n");
+                 String(zg);
     
     delay(10);
 }
@@ -137,6 +142,9 @@ void loop() {
 
     Meas();
     getTimeString();
+    //Serial.print(timeString);
+    //Serial.println(dataString);
+    //delay(500);
     write2SD(dataString);
     //blinkState = !blinkState;
     //digitalWrite(LED_PIN, blinkState);
