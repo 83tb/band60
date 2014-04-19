@@ -41,22 +41,22 @@ ADXL345 accel;
 SerialCommand sCmd;     // obiekt komunikacji Serial
 
 void setup() {
-
+Serial.println("TEST");
   
   Wire.begin();
-  accel.initialize();
+  
 
   Serial.begin(9600);
 
 
   // VCNL INIT
-
+  /*
   uint8_t rev = read8(VCNL4000_PRODUCTID);
   
-  if ((rev & 0xF0) != 0x10) {
+   if ((rev & 0xF0) != 0x10) {
     Serial.println("Ambient and Proximity sensors not found :(");
     while (1);
-  }
+   }
 
   Serial.print("Proximity measurement frequency = ");
   uint8_t freq = read8(VCNL4000_SIGNALFREQ);
@@ -72,20 +72,22 @@ void setup() {
   Serial.print("Proximity adjustment register = ");
   Serial.println(read8(VCNL4000_PROXINITYADJUST), HEX);
 
+  */
   // EOF VCNL INIT
 
   // ACCEL INIT
 
+  accel.initialize(); 
   do {
-        Serial.println("Testing device connections...");
+        // Serial.println("Testing device connections...");
     } while (accel.testConnection() == 0);
 
-  Serial.println("ADXL345 connection successful");
+  // Serial.println("ADXL345 connection successful");
     
   accel.setRate(0xF);
   accel.setRange(0x3);
   delay(1000);
-
+  
  // EOF ACCEL INIT
 
 
@@ -98,10 +100,10 @@ void setup() {
   sCmd.addCommand("am", read_proximity);
   
 
-  Serial.println("-------------------\n"); 
-  Serial.println("ZenMakers, @83TB\n"); 
-  Serial.println("Log: Engine console initialized. Ready when you are.");
-  Serial.println("Hint: Type h for help");
+  // Serial.println("-------------------\n"); 
+  // Serial.println("ZenMakers, @83TB\n"); 
+  // Serial.println("Log: Engine console initialized. Ready when you are.");
+  // Serial.println("Hint: Type h for help");
   
 }
 
@@ -157,8 +159,21 @@ void i2c_scan() {
 
 void loop() {
   sCmd.readSerial();     // Przetwarzanie, to wszystko co dzieje sie w petli
+  accel.getAcceleration(&ax, &ay, &az);
+
+  xg = (ax * 31.2)/1000;
+  yg = (ay * 31.2)/1000;
+  zg = (az * 31.2)/1000;
+  Serial.print(xg);
+  Serial.print(",");
+  Serial.print(yg);
+  Serial.print(",");
+  Serial.print(zg);
+  Serial.println(",0,0");
+  delay(100);
 
 
+  
 
 }
 

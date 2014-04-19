@@ -1,0 +1,9 @@
+curl -u 'kuba:kofi' -X POST http://127.0.0.1:8000/r/timeseries -d '{
+    "when": null,
+    "xvalue": 0,
+    "yvalue": 0,
+    "zvalue": 0,
+    "person": null,
+    "tags_string": ""
+}'  -H "Content-Type: application/json"
+
